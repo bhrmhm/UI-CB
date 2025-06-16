@@ -19,6 +19,6 @@ class ProcessNodeView(NodeView):
         painter.drawText(self.boundingRect(), Qt.AlignCenter, self._task._name)
 
     def execute(self):
-        print(f"Executing ProcessNode {self._id}")
+        print(f"Executing ProcessNode {self.get_task().get_id()}")
 
 

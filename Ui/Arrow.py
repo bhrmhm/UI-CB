@@ -30,7 +30,6 @@ class Arrow(QGraphicsItem):
         end_rect = self._end_node.boundingRect()
         end_top_center = self.mapFromItem(self._end_node, QPointF(end_rect.center().x(), end_rect.top()))
 
-        print("start and end point", start_point, end_point)
         direction = end_top_center - start_down_center
         length = math.sqrt(direction.x() ** 2 + direction.y() ** 2)
         # Normalize direction
@@ -41,7 +40,7 @@ class Arrow(QGraphicsItem):
         arrow_size = 10
         # Compute new tip point for arrow (before node edge)
         arrow_tip = end_top_center - direction_unit * 14
-        arrow_p1 = arrow_tip + QPointF(
+        arrow_p1 = end_top_center + QPointF(
             math.sin(angle - math.pi / 6) * arrow_size,
             math.cos(angle - math.pi / 6) * arrow_size
         )

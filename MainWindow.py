@@ -11,8 +11,8 @@ from src.Ui.ComputationNodeView import ComputationNodeView
 from src.Ui.EndNodeView import EndNodeView
 from src.Ui.ProcessNodeView import ProcessNodeView
 from src.Ui.QuestionNodeView import QuestionNodeView
+from src.Ui.SceneController import SceneController
 from src.Ui.StartNodeView import StartNodeView
-from src.Ui.ToolBar import ToolBar
 from src.model.ComputationNode import ComputationNode
 from src.model.EndProcess import EndProcess
 
@@ -36,6 +36,7 @@ class MainWindow(QMainWindow):
 
         # Create graphics scene and view
         self.scene = QGraphicsScene()
+        self.controller = SceneController(self.scene)
         self.view = QGraphicsView(self.scene)
         self.view.setMinimumSize(300, 350)
         self.scene.setSceneRect(0, 0, 600, 650)  # Optional, but good for space
@@ -140,6 +141,7 @@ class MainWindow(QMainWindow):
         task_start_node = StartProcess(id, "StartProcess", "Beggining of forkflow", [], "")
         print(id)
         start_node = StartNodeView(random.randint(0,100), random.randint(0,100), task_start_node)
+        start_node.set_controller(self.controller)
         self.add_to_list(task_start_node)
         self.scene.addItem(start_node)
 
@@ -149,6 +151,7 @@ class MainWindow(QMainWindow):
         print(id)
         task_end_node = EndProcess(id, "EndProcess", "End of forkflow", [], "")
         end_node = EndNodeView(random.randint(0,100), random.randint(0,100), task_end_node)
+        end_node.set_controller(self.controller)
         self.add_to_list(task_end_node)
         self.scene.addItem(end_node)
 
@@ -158,6 +161,7 @@ class MainWindow(QMainWindow):
         print(id)
         nAry_question_node = QuestionNode(id, "Question Node", "4<a?", ["4<a"], " ")
         question_node = QuestionNodeView(random.randint(0,100),random.randint(0,100), 100, 50, nAry_question_node)
+        question_node.set_controller(self.controller)
         self.add_to_list(nAry_question_node)
         self.scene.addItem(question_node)
 
@@ -168,6 +172,7 @@ class MainWindow(QMainWindow):
         print(id)
         task_process_node = ProcessNode(id, "ProcessNode", " a+b=a", ["a+b=a"]," ")
         process_node = ProcessNodeView(random.randint(0,100),random.randint(0,100), task_process_node)
+        process_node.set_controller(self.controller)
         self.add_to_list(task_process_node)
         self.scene.addItem(process_node)
 
@@ -176,10 +181,11 @@ class MainWindow(QMainWindow):
         id = IDFactory().get_uri_id("name_to_be_defined", "parallel1", "Parallel node")
         nAry_computation_node1 = ComputationNode(id, "Computation Node", "", ["print(\"parallel 1\")"], "p1")
         computation_node1 = ComputationNodeView(random.randint(0,100), random.randint(0,100), 100, 50, nAry_computation_node1)
-
+        computation_node1.set_controller(self.controller)
         id = IDFactory().get_uri_id("name_to_be_defined", "parallel2", "Parallel node")
         nAry_computation_node2 = ComputationNode(id, "Computation Node", "", ["print(\"parallel 2\")"], "p1")
         computation_node2 = ComputationNodeView(random.randint(0,100), random.randint(0,100), 100, 50, nAry_computation_node2)
+        computation_node2.set_controller(self.controller)
         self.scene.addItem(computation_node1)
         self.scene.addItem(computation_node2)
         self.add_to_list(nAry_computation_node1)

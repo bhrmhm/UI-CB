@@ -4,6 +4,7 @@ from PyQt5.QtCore import QRectF
 from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QStyleOptionGraphicsItem, QWidget, QGraphicsItem
 
+from src.Ui.SceneController import SceneController
 from src.model import Task
 from src.model.NAryNode import NAryTask
 
@@ -11,7 +12,6 @@ from src.model.NAryNode import NAryTask
 class NAryNodeView(QGraphicsItem):
     """Abstract class for each Node graphic"""
     def __init__(self, x:int, y:int, h:int, w:int,nAry:NAryTask): #TODO change back later when you have the classes
-    #def __init__(self, id:str,name:str, x:int, y:int):
         super().__init__()
         self._x = x
         self._y = y
@@ -42,4 +42,12 @@ class NAryNodeView(QGraphicsItem):
     def get_nAry(self)->NAryTask:
         return self._nAry
 
+    def set_controller(self, controller:SceneController)->None:
+        self.controller = controller
+
+    def mousePressEvent(self, event):
+        self.setSelected(True)  # mark node as selected
+        if hasattr(self, 'controller'):  # search if it has an attribute 'controller'
+            self.controller.node_clicked(self)
+        super().mousePressEvent(event)
 
