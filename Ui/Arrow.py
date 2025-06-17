@@ -23,6 +23,7 @@ class Arrow(QGraphicsItem):
 
 
     def paint(self, painter: QPainter, option, widget=None):
+        #TODO figure out how to draw the arrow outside of node's bounding - make it cleaner
         start_point = self.mapFromItem(self._start_node, self._start_node.boundingRect().center())
         end_point = self.mapFromItem(self._end_node, self._end_node.boundingRect().center())
         start_rect = self._start_node.boundingRect()

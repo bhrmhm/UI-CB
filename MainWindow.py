@@ -28,6 +28,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self._nodes:list = []
+        self._edges:list[list] = [] # Edges list [first_node, last_node]
 
         self.setWindowTitle("Test")
         self.resize(800, 700)  # Width x Height in pixels
@@ -36,7 +37,7 @@ class MainWindow(QMainWindow):
 
         # Create graphics scene and view
         self.scene = QGraphicsScene()
-        self.controller = SceneController(self.scene)
+        self.controller = SceneController(self.scene, self._nodes)
         self.view = QGraphicsView(self.scene)
         self.view.setMinimumSize(300, 350)
         self.scene.setSceneRect(0, 0, 600, 650)  # Optional, but good for space
@@ -65,7 +66,7 @@ class MainWindow(QMainWindow):
         self.button = QPushButton('add', self)
         self.button.setToolTip('Add nodes')
         self.button.move(100, 70)
-        self.button.clicked.connect(self.on_click)
+        #self.button.clicked.connect(self.on_click)
 
         #Dropdown menu
         nodes_menu = QMenu(self)
@@ -100,7 +101,7 @@ class MainWindow(QMainWindow):
         self.pane_principal.addWidget(menu)
         self.central_widget.setLayout(self.pane_principal)
         #exemple
-        id = IDFactory().get_uri_id("name_to_be_defined", "start", "Start node")
+        '''id = IDFactory().get_uri_id("name_to_be_defined", "start", "Start node")
         task_start_node = StartProcess(id, "StartProcess", "Beggining of forkflow", [], "")
         start_node = StartNodeView(0,0, task_start_node)
         self.add_to_list(task_start_node)
@@ -114,26 +115,17 @@ class MainWindow(QMainWindow):
         arrow1 = Arrow(start_node, question_node)
         print(arrow1._start_node)
         print(arrow1._end_node)
-        self.scene.addItem(arrow1)
+        self.scene.addItem(arrow1)'''
 
 
 
     def add_to_list(self,task:Task):
         self._nodes.append(task)
-    def index_changed(self, i)->None:
-        print(i.text())
-        self.list_widget.hide()
 
-    def on_click(self)->None:
-        print("clicked on button")
-        self.list_widget.show()
-        #TODO if i click again it hides it
 
     def exportToJSON(self):
         print("export to JSON")
 
-    #def init
-    #TODO x,y random + fabrique id
     # for now details by default + later the user should be able to change it
     def handle_start_node(self)->None:
         print("handle_start_node")
@@ -144,6 +136,7 @@ class MainWindow(QMainWindow):
         start_node.set_controller(self.controller)
         self.add_to_list(task_start_node)
         self.scene.addItem(start_node)
+        print(self.controller.get_nodes())
 
     def handle_end_node(self)->None:
         print("handle_end_node")
