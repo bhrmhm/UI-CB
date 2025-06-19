@@ -21,4 +21,8 @@ class ComputationNodeView(NAryNodeView):
         painter.drawText(self.boundingRect(), Qt.AlignCenter, "||")
 
     def execute(self):
-        print(f"Executing ProcessNode {self.get_nAry().get_id()}")
+        print(f"Executing ProcessNode {self.get_task().get_id()}")
+
+    def handle_edit_info(self):
+        print("Edit not possible for this node")
+        # TODO a dialog box for this message

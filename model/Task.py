@@ -10,7 +10,7 @@ class Task(ABC) :
         self._id:str = id_
         self._name:str = name
         self._description:str = description #TODO : change it for explication class later
-        self._code_py:list[str] = code_py
+        self._code_py:list = code_py
         self._successors:list[Task] = []
         self._label:str = label
 
@@ -35,6 +35,17 @@ class Task(ABC) :
         """ Get the description of the task"""
         return self._description
 
+    def set_name(self,name:str)->None:
+        """ Set the name of the task"""
+        self._name = name
+    def set_description(self,description:str)->None:
+        """ Set the description of the task"""
+        self._description = description
+    def set_code(self,code:list[str])->None:
+        """ Set the code of the task"""
+        self._code_py = code
+
+
 
 
     @staticmethod
@@ -56,6 +67,10 @@ class Task(ABC) :
         """ Remove a successor to the task"""
         self._successors.remove(task)
 
-    def get_code_py(self) -> list[str]:
+    def get_code_py(self) -> list:
         """ Get the code of the task"""
         return self._code_py
+
+    def get_label(self)->str:
+        """ Get the label of the task"""
+        return self._label

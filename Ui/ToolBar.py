@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import QToolBar
-from PyQt5.uic.Compiler.qtproxies import QtWidgets
 from PyQt5.QtWidgets import QWidget, QPushButton, QMenu
 
 from src.Ui.StartNodeView import StartNodeView

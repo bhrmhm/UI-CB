@@ -2,6 +2,7 @@ from PyQt5.QtCore import QRectF, Qt, QPointF
 from PyQt5.QtGui import QPainter, QBrush, QColor, QPolygonF
 from PyQt5.QtWidgets import QStyleOptionGraphicsItem, QWidget
 
+from Ui.InfoInputDialogQuestion import InfoInputDialogQuestion
 from src.Ui.NAryNodeView import NAryNodeView
 from src.model.NAryNode import NAryTask
 from src.model.Task import Task
@@ -40,6 +41,15 @@ class QuestionNodeView(NAryNodeView):
     def execute(self):
         print(f"Executing ProcessNode {self._nAry.get_id()}")
 
+    def handle_edit_info(self):
+        dialog = InfoInputDialogQuestion()
+        dialog.exec_()
+        if dialog.get_input_name() != "":
+            self.get_task().set_name(dialog.get_input_name())
+        if dialog.get_input_code_py() != "":
+            self.get_task().set_code(dialog.get_input_code_py())
+        if dialog.get_input_description() != "":
+            self.get_task().set_description(dialog.get_input_description())
 
 
 

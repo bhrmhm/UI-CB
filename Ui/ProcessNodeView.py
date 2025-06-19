@@ -2,11 +2,11 @@ from PyQt5.QtCore import QRectF, Qt
 from PyQt5.QtGui import QPainter, QBrush, QColor
 from PyQt5.QtWidgets import QStyleOptionGraphicsItem, QWidget
 
-from src.Ui.NodeView import NodeView
+from src.Ui.AtomicNodeView import AtomicNodeView
 from src.model.Task import Task
 
 
-class ProcessNodeView(NodeView):
+class ProcessNodeView(AtomicNodeView):
     def __init__(self, x: int, y: int, task: Task):
         super().__init__(x,y, task)
 
